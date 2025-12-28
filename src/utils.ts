@@ -12,7 +12,7 @@ import type { RateLimitInfo } from './types';
  */
 export function generateToken(environment: 'live' | 'test' = 'live'): string {
   const random = crypto.randomBytes(24).toString('base64url');
-  return `apt_${environment}_${random}`;
+  return `apertodns_${environment}_${random}`;
 }
 
 /**

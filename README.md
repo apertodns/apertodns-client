@@ -18,7 +18,7 @@ npm install apertodns-client
 import { ApertoDNSClient } from 'apertodns-client';
 
 const client = new ApertoDNSClient({
-  token: 'apt_live_xxxxxxxxxxxxxxxxxxxxxxxxxx'
+  token: 'apertodns_live_xxxxxxxxxxxxxxxxxxxxxxxxxx'
 });
 
 // Update a hostname with auto IP detection
@@ -48,7 +48,7 @@ console.log(`Updated to ${result.ipv4}`);
 ```typescript
 const client = new ApertoDNSClient({
   // Required: Your API token
-  token: 'apt_live_xxx',
+  token: 'apertodns_live_xxx',
 
   // Optional: API base URL (default: https://api.apertodns.com)
   baseUrl: 'https://api.apertodns.com',
@@ -157,7 +157,7 @@ const token = await client.createToken({
   expires_at: '2025-12-31T23:59:59Z'
 });
 
-console.log(token.token); // 'apt_live_xxx' - Save this immediately!
+console.log(token.token); // 'apertodns_live_xxx' - Save this immediately!
 
 // List tokens
 const tokens = await client.listTokens();

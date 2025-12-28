@@ -10,7 +10,7 @@
  * import { ApertoDNSClient } from 'apertodns-client';
  *
  * const client = new ApertoDNSClient({
- *   token: 'apt_live_xxxxxxxxxxxxxxxxxxxxxxxxxx'
+ *   token: 'apertodns_live_xxxxxxxxxxxxxxxxxxxxxxxxxx'
  * });
  *
  * // Update a hostname with auto IP detection

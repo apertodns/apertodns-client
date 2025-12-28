@@ -208,12 +208,12 @@ describe('TTL Validation', () => {
 describe('Token Validation', () => {
   describe('isValidToken', () => {
     it('should accept valid tokens', () => {
-      expect(isValidToken('apt_live_7Hqj3kL9mNpR2sT5vWxY8zA1bC4dE6fG')).toBe(true);
-      expect(isValidToken('apt_test_7Hqj3kL9mNpR2sT5vWxY8zA1bC4dE6fG')).toBe(true);
+      expect(isValidToken('apertodns_live_7Hqj3kL9mNpR2sT5vWxY8zA1bC4dE6fG')).toBe(true);
+      expect(isValidToken('apertodns_test_7Hqj3kL9mNpR2sT5vWxY8zA1bC4dE6fG')).toBe(true);
     });
 
     it('should reject invalid token formats', () => {
-      expect(isValidToken('apt_live_short')).toBe(false);
+      expect(isValidToken('apertodns_live_short')).toBe(false);
       expect(isValidToken('invalid_token')).toBe(false);
       expect(isValidToken('')).toBe(false);
       expect(isValidToken('apt_prod_7Hqj3kL9mNpR2sT5vWxY8zA1bC4dE6fG')).toBe(false);

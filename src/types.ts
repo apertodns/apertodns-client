@@ -11,7 +11,7 @@
 export interface ApertoDNSConfig {
   /** API base URL (default: https://api.apertodns.com) */
   baseUrl?: string;
-  /** API token (apt_live_xxx or apt_test_xxx) */
+  /** API token (apertodns_live_xxx or apertodns_test_xxx) */
   token: string;
   /** Request timeout in milliseconds (default: 30000) */
   timeout?: number;

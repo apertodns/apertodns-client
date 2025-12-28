@@ -48,7 +48,7 @@ const DEFAULT_USER_AGENT = 'apertodns-client/1.0.0';
  * @example
  * ```typescript
  * const client = new ApertoDNSClient({
- *   token: 'apt_live_xxxxxxxxxxxxxxxxxxxxxxxxxx'
+ *   token: 'apertodns_live_xxxxxxxxxxxxxxxxxxxxxxxxxx'
  * });
  *
  * // Update a hostname

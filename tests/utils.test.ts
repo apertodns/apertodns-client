@@ -19,12 +19,12 @@ describe('Token Generation', () => {
   describe('generateToken', () => {
     it('should generate valid live token format', () => {
       const token = generateToken('live');
-      expect(token).toMatch(/^apt_live_[A-Za-z0-9_-]{32}$/);
+      expect(token).toMatch(/^apertodns_live_[A-Za-z0-9_-]{32}$/);
     });
 
     it('should generate valid test token format', () => {
       const token = generateToken('test');
-      expect(token).toMatch(/^apt_test_[A-Za-z0-9_-]{32}$/);
+      expect(token).toMatch(/^apertodns_test_[A-Za-z0-9_-]{32}$/);
     });
 
     it('should generate unique tokens', () => {
@@ -36,9 +36,9 @@ describe('Token Generation', () => {
 
   describe('maskToken', () => {
     it('should mask token correctly', () => {
-      const token = 'apt_live_7Hqj3kL9mNpR2sT5vWxY8zA1bC4dE6fG';
+      const token = 'apertodns_live_7Hqj3kL9mNpR2sT5vWxY8zA1bC4dE6fG';
       const masked = maskToken(token);
-      expect(masked).toBe('apt_live...E6fG');
+      expect(masked).toBe('apertond...E6fG');
     });
 
     it('should return *** for short tokens', () => {

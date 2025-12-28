@@ -163,7 +163,7 @@ export function isValidTTL(ttl: number): boolean {
  * Validate token format
  */
 export function isValidToken(token: string): boolean {
-  return /^apt_(live|test)_[A-Za-z0-9_-]{32}$/.test(token);
+  return /^apertodns_(live|test)_[A-Za-z0-9_-]{32}$/.test(token);
 }
 
 /**
