@@ -1,0 +1,61 @@
+{
+  "name": "apertodns-client",
+  "version": "1.0.0",
+  "description": "Universal TypeScript client for ApertoDNS Protocol v1.0",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "license": "MIT",
+  "author": "Andrea Ferro <support@apertodns.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/apertodns/apertodns-client"
+  },
+  "homepage": "https://apertodns.com",
+  "bugs": {
+    "url": "https://github.com/apertodns/apertodns-client/issues"
+  },
+  "keywords": [
+    "ddns",
+    "dynamic-dns",
+    "dns",
+    "apertodns",
+    "dyndns",
+    "dyndns2",
+    "ip-update",
+    "typescript"
+  ],
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts --clean",
+    "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
+    "test": "vitest",
+    "test:coverage": "vitest --coverage",
+    "lint": "eslint src/",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.3.0",
+    "vitest": "^1.0.0",
+    "eslint": "^8.55.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0"
+  }
+}
