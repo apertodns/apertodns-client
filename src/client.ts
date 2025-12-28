@@ -60,8 +60,20 @@ const DEFAULT_USER_AGENT = 'apertodns-client/1.0.0';
  * console.log(result.ipv4); // '203.0.113.50'
  * ```
  */
+interface ResolvedConfig {
+  baseUrl: string;
+  token: string;
+  timeout: number;
+  userAgent: string;
+  retry: {
+    maxRetries: number;
+    retryDelay: number;
+    retryOnStatus: number[];
+  };
+}
+
 export class ApertoDNSClient {
-  private readonly config: Required<ApertoDNSConfig>;
+  private readonly config: ResolvedConfig;
   private lastRateLimit: RateLimitInfo | null = null;
 
   constructor(config: ApertoDNSConfig) {
