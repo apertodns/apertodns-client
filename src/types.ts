@@ -315,7 +315,7 @@ export type ApiKeyScope =
   | 'records:write'
   | 'webhooks:read'
   | 'webhooks:write'
-  | 'dyndns:update'
+  | 'dns:update'
   | 'profile:read'
   | 'custom-domains:read'
   | 'custom-domains:write'
