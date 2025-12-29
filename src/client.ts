@@ -21,6 +21,18 @@ import type {
   DeleteAccountResponse,
   ApiResponse,
   RateLimitInfo,
+  // v1.2 Management types
+  CreateApiKeyRequest,
+  ApiKeyResponse,
+  CreateApiKeyResponse,
+  CreateLegacyTokenRequest,
+  LegacyTokenResponse,
+  CreateLegacyTokenResponse,
+  RegenerateTokenResponse,
+  CreateWebhookRequestV2,
+  UpdateWebhookRequest,
+  WebhookResponseV2,
+  DeleteResponse,
 } from './types';
 
 import {
@@ -237,6 +249,148 @@ export class ApertoDNSClient {
       'DELETE',
       `/.well-known/apertodns/v1/webhooks/${encodeURIComponent(webhookId)}`
     );
+  }
+
+  // ============================================================================
+  // API Keys Management (v1.2)
+  // ============================================================================
+
+  /**
+   * List all API keys
+   * Note: Full key is never returned, only keyPrefix
+   */
+  async listApiKeys(): Promise<ApiKeyResponse[]> {
+    const response = await this.request<ApiKeyResponse[]>(
+      'GET',
+      '/.well-known/apertodns/v1/api-keys'
+    );
+    return response;
+  }
+
+  /**
+   * Create a new API key
+   * Warning: The full key is only returned once in this response
+   */
+  async createApiKey(request: CreateApiKeyRequest): Promise<CreateApiKeyResponse> {
+    const response = await this.request<CreateApiKeyResponse>(
+      'POST',
+      '/.well-known/apertodns/v1/api-keys',
+      request
+    );
+    return response;
+  }
+
+  /**
+   * Delete an API key
+   */
+  async deleteApiKey(id: number): Promise<DeleteResponse> {
+    const response = await this.request<DeleteResponse>(
+      'DELETE',
+      `/.well-known/apertodns/v1/api-keys/${id}`
+    );
+    return response;
+  }
+
+  // ============================================================================
+  // Legacy Token Management (v1.2)
+  // ============================================================================
+
+  /**
+   * List all legacy tokens
+   * Note: Token hash is never returned
+   */
+  async listLegacyTokens(): Promise<LegacyTokenResponse[]> {
+    const response = await this.request<LegacyTokenResponse[]>(
+      'GET',
+      '/.well-known/apertodns/v1/tokens'
+    );
+    return response;
+  }
+
+  /**
+   * Create a new legacy token (domain-bound)
+   * Warning: The full token is only returned once in this response
+   */
+  async createLegacyToken(request: CreateLegacyTokenRequest): Promise<CreateLegacyTokenResponse> {
+    const response = await this.request<CreateLegacyTokenResponse>(
+      'POST',
+      '/.well-known/apertodns/v1/tokens',
+      request
+    );
+    return response;
+  }
+
+  /**
+   * Regenerate a legacy token
+   * Warning: The old token becomes invalid immediately
+   */
+  async regenerateLegacyToken(id: number): Promise<RegenerateTokenResponse> {
+    const response = await this.request<RegenerateTokenResponse>(
+      'POST',
+      `/.well-known/apertodns/v1/tokens/${id}/regenerate`
+    );
+    return response;
+  }
+
+  /**
+   * Delete a legacy token
+   */
+  async deleteLegacyToken(id: number): Promise<DeleteResponse> {
+    const response = await this.request<DeleteResponse>(
+      'DELETE',
+      `/.well-known/apertodns/v1/tokens/${id}`
+    );
+    return response;
+  }
+
+  // ============================================================================
+  // Webhook Management v1.2
+  // ============================================================================
+
+  /**
+   * List all webhooks (v1.2 format)
+   */
+  async listWebhooksV2(): Promise<WebhookResponseV2[]> {
+    const response = await this.request<WebhookResponseV2[]>(
+      'GET',
+      '/.well-known/apertodns/v1/webhooks'
+    );
+    return response;
+  }
+
+  /**
+   * Create a new webhook (v1.2 format)
+   */
+  async createWebhookV2(request: CreateWebhookRequestV2): Promise<WebhookResponseV2> {
+    const response = await this.request<WebhookResponseV2>(
+      'POST',
+      '/.well-known/apertodns/v1/webhooks',
+      request
+    );
+    return response;
+  }
+
+  /**
+   * Update a webhook
+   */
+  async updateWebhook(id: number, request: UpdateWebhookRequest): Promise<WebhookResponseV2> {
+    const response = await this.request<WebhookResponseV2>(
+      'PATCH',
+      `/.well-known/apertodns/v1/webhooks/${id}`,
+      request
+    );
+    return response;
+  }
+
+  /**
+   * Delete a webhook (v1.2)
+   */
+  async deleteWebhookV2(id: number): Promise<DeleteResponse> {
+    const response = await this.request<DeleteResponse>(
+      'DELETE',
+      `/.well-known/apertodns/v1/webhooks/${id}`
+    );
+    return response;
   }
 
   // ============================================================================

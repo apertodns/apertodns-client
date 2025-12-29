@@ -301,6 +301,153 @@ export type ErrorCode =
   | 'timeout';
 
 // ============================================================================
+// API Keys Types (v1.2)
+// ============================================================================
+
+export type ApiKeyScope =
+  | 'domains:read'
+  | 'domains:write'
+  | 'domains:delete'
+  | 'tokens:read'
+  | 'tokens:write'
+  | 'tokens:delete'
+  | 'records:read'
+  | 'records:write'
+  | 'webhooks:read'
+  | 'webhooks:write'
+  | 'dyndns:update'
+  | 'profile:read'
+  | 'custom-domains:read'
+  | 'custom-domains:write'
+  | 'custom-domains:delete'
+  | 'credentials:read'
+  | 'credentials:write'
+  | 'credentials:delete';
+
+export interface CreateApiKeyRequest {
+  /** API key name */
+  name: string;
+  /** Scopes/permissions */
+  scopes: ApiKeyScope[];
+  /** Expiration (e.g., "30d", "365d") */
+  expiresIn?: string;
+}
+
+export interface ApiKeyResponse {
+  id: number;
+  name: string;
+  keyPrefix: string;
+  scopes: ApiKeyScope[];
+  rateLimit: number;
+  expiresAt: string | null;
+  active: boolean;
+  createdAt: string;
+  lastUsedAt: string | null;
+}
+
+export interface CreateApiKeyResponse {
+  id: number;
+  name: string;
+  key: string;
+  keyPrefix: string;
+  scopes: ApiKeyScope[];
+  rateLimit: number;
+  expiresAt: string | null;
+  createdAt: string;
+}
+
+// ============================================================================
+// Token Types (v1.2 - Legacy domain-bound)
+// ============================================================================
+
+export interface CreateLegacyTokenRequest {
+  /** Domain ID to bind token to */
+  domainId: number;
+  /** Token label/description */
+  label?: string;
+  /** Expiration (e.g., "30d", "365d") */
+  expiresIn?: string;
+}
+
+export interface LegacyTokenResponse {
+  id: number;
+  label: string | null;
+  domainId: number;
+  domainName: string | null;
+  expiresAt: string | null;
+  revoked: boolean;
+  active: boolean;
+  createdAt: string;
+}
+
+export interface CreateLegacyTokenResponse {
+  id: number;
+  token: string;
+  label: string | null;
+  domainId: number;
+  domainName: string | null;
+  expiresAt: string | null;
+  createdAt: string;
+}
+
+export interface RegenerateTokenResponse {
+  id: number;
+  token: string;
+  domainName: string | null;
+}
+
+// ============================================================================
+// Webhook Types (v1.2)
+// ============================================================================
+
+export type WebhookEventType = 'ip_change' | 'domain_create' | 'domain_delete' | 'update_failed';
+
+export interface CreateWebhookRequestV2 {
+  /** Webhook URL (HTTPS) */
+  url: string;
+  /** Events to subscribe to */
+  events: WebhookEventType[];
+  /** HMAC secret for signature verification */
+  secret?: string;
+  /** Optional domain ID to filter events */
+  domainId?: number | null;
+}
+
+export interface UpdateWebhookRequest {
+  /** Update URL */
+  url?: string;
+  /** Update events */
+  events?: WebhookEventType[];
+  /** Enable/disable */
+  active?: boolean;
+  /** Update secret */
+  secret?: string;
+}
+
+export interface WebhookResponseV2 {
+  id: number;
+  url: string;
+  events: WebhookEventType[];
+  domainId: number | null;
+  domainName: string | null;
+  active: boolean;
+  lastCalled: string | null;
+  lastStatus: number | null;
+  failCount: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+// ============================================================================
+// Delete Response (v1.2)
+// ============================================================================
+
+export interface DeleteResponse {
+  id: number;
+  deleted: boolean;
+}
+
+// ============================================================================
 // Rate Limit Types
 // ============================================================================
 
