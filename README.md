@@ -146,6 +146,29 @@ console.log(info.provider.name);     // 'ApertoDNS'
 console.log(info.capabilities.ipv6); // true
 ```
 
+### Health Check
+
+```typescript
+const health = await client.getHealth(); // No auth required
+
+console.log(health.status);    // 'healthy'
+console.log(health.uptime);    // seconds since start
+console.log(health.timestamp); // ISO timestamp
+```
+
+### List Domains
+
+```typescript
+const domains = await client.listDomains();
+
+domains.forEach(d => {
+  console.log(`${d.hostname}: ${d.ipv4 || 'no IPv4'}`);
+});
+// Output:
+// myhost.apertodns.com: 203.0.113.50
+// other.apertodns.com: 198.51.100.10
+```
+
 ### API Keys Management (v1.2)
 
 ```typescript
@@ -242,16 +265,19 @@ await client.deleteWebhook('wh_xxx');
 
 ### GDPR / Account
 
-```typescript
-// Request data export
-const exportRequest = await client.requestExport();
-console.log(exportRequest.export_id);
+> Note: GDPR endpoints are ApertoDNS-specific (`/api/*`), not part of the protocol standard.
 
-// Delete account
+```typescript
+// Request data export (GET /api/export)
+const exportData = await client.requestExport();
+console.log(exportData.user.email);
+console.log(exportData.domains.length);
+
+// Delete account (POST /api/delete-account)
 const result = await client.deleteAccount({
-  confirm: 'DELETE_MY_ACCOUNT',
-  reason: 'No longer needed'
+  confirmation: 'DELETE_MY_ACCOUNT'  // Required confirmation string
 });
+console.log(result.deletedAt);
 ```
 
 ## Error Handling
