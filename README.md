@@ -356,6 +356,10 @@ if (rateLimitInfo) {
 - Node.js 16+
 - Native `fetch` support (Node.js 18+ or polyfill)
 
+## Note on Terminology
+
+This client maintains compatibility with the DynDNS2 protocol (`/nic/update`), which is a de facto industry standard used by routers, NAS devices, and DDNS clients worldwide. DynDNS® is a registered trademark of Oracle Corporation. ApertoDNS is not affiliated with or endorsed by Oracle or Dyn.
+
 ## License
 
 MIT - Andrea Ferro <support@apertodns.com>
