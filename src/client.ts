@@ -125,6 +125,47 @@ export class ApertoDNSClient {
   }
 
   /**
+   * Get health status
+   * No authentication required
+   */
+  async getHealth(): Promise<{ status: string; timestamp: string; uptime: number }> {
+    const response = await this.request<{ status: string; timestamp: string; uptime: number }>(
+      'GET',
+      '/.well-known/apertodns/v1/health',
+      undefined,
+      { skipAuth: true }
+    );
+    return response;
+  }
+
+  /**
+   * List all domains for the authenticated user
+   */
+  async listDomains(): Promise<Array<{
+    hostname: string;
+    ipv4: string | null;
+    ipv6: string | null;
+    ttl: number;
+    isCustom: boolean;
+    updatedAt: string;
+    createdAt: string;
+  }>> {
+    const response = await this.request<Array<{
+      hostname: string;
+      ipv4: string | null;
+      ipv6: string | null;
+      ttl: number;
+      isCustom: boolean;
+      updatedAt: string;
+      createdAt: string;
+    }>>(
+      'GET',
+      '/.well-known/apertodns/v1/domains'
+    );
+    return response;
+  }
+
+  /**
    * Update a single hostname
    */
   async update(request: UpdateRequest): Promise<UpdateResponse> {
@@ -399,22 +440,25 @@ export class ApertoDNSClient {
 
   /**
    * Request data export (GDPR Article 20)
+   * Uses /api/export endpoint
    */
   async requestExport(): Promise<ExportResponse> {
     const response = await this.request<ExportResponse>(
-      'POST',
-      '/.well-known/apertodns/v1/account/export'
+      'GET',
+      '/api/export'
     );
     return response;
   }
 
   /**
    * Delete account (GDPR Article 17)
+   * Uses /api/delete-account endpoint
+   * Requires confirmation: { confirmation: "DELETE_MY_ACCOUNT" }
    */
   async deleteAccount(request: DeleteAccountRequest): Promise<DeleteAccountResponse> {
     const response = await this.request<DeleteAccountResponse>(
-      'DELETE',
-      '/.well-known/apertodns/v1/account',
+      'POST',
+      '/api/delete-account',
       request
     );
     return response;
