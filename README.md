@@ -1,10 +1,10 @@
 # apertodns-client
 
-Universal TypeScript client for ApertoDNS Protocol v1.0
+Universal TypeScript client for ApertoDNS Protocol v1.2
 
 [![npm version](https://img.shields.io/npm/v/apertodns-client.svg)](https://www.npmjs.com/package/apertodns-client)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![ApertoDNS Protocol v1.0](https://img.shields.io/badge/ApertoDNS_Protocol-v1.0-blue)](https://apertodns.com/protocol)
+[![ApertoDNS Protocol v1.2](https://img.shields.io/badge/ApertoDNS_Protocol-v1.2-blue)](https://apertodns.com/protocol)
 
 ## Installation
 
@@ -32,7 +32,7 @@ console.log(`Updated to ${result.ipv4}`);
 
 ## Features
 
-- Full ApertoDNS Protocol v1.0 support
+- Full ApertoDNS Protocol v1.2 support
 - TypeScript-first with complete type definitions
 - Automatic retries with exponential backoff
 - Rate limit handling
@@ -146,27 +146,82 @@ console.log(info.provider.name);     // 'ApertoDNS'
 console.log(info.capabilities.ipv6); // true
 ```
 
-### Token Management
+### API Keys Management (v1.2)
 
 ```typescript
-// Create token
-const token = await client.createToken({
-  name: 'Home Router',
-  permissions: ['update', 'read'],
-  allowed_hostnames: ['myhost.apertodns.com'],
-  expires_at: '2025-12-31T23:59:59Z'
+// List API keys (full key never returned, only prefix)
+const keys = await client.listApiKeys();
+
+// Create API key - SAVE THE KEY IMMEDIATELY!
+const newKey = await client.createApiKey({
+  name: 'My Script',
+  scopes: ['domains:read', 'dns:update'],
+  expiresIn: '30d'  // optional
 });
+console.log(newKey.key); // 'apertodns_live_xxx' - Only shown once!
 
-console.log(token.token); // 'apertodns_live_xxx' - Save this immediately!
-
-// List tokens
-const tokens = await client.listTokens();
-
-// Delete token
-await client.deleteToken('tok_xxx');
+// Delete API key
+await client.deleteApiKey(123);
 ```
 
-### Webhook Management
+**Available Scopes:**
+- `domains:read`, `domains:write`, `domains:delete`
+- `tokens:read`, `tokens:write`, `tokens:delete`
+- `records:read`, `records:write`
+- `webhooks:read`, `webhooks:write`
+- `dns:update`, `profile:read`
+- `custom-domains:read`, `custom-domains:write`, `custom-domains:delete`
+- `credentials:read`, `credentials:write`, `credentials:delete`
+
+### Token Management (v1.2)
+
+Legacy domain-bound tokens for DynDNS compatibility:
+
+```typescript
+// List tokens
+const tokens = await client.listLegacyTokens();
+
+// Create token - SAVE IMMEDIATELY!
+const token = await client.createLegacyToken({
+  domainId: 123,
+  label: 'Home Router',
+  expiresIn: '365d'
+});
+console.log(token.token); // Only shown once!
+
+// Regenerate token (invalidates old one)
+const newToken = await client.regenerateLegacyToken(456);
+
+// Delete token
+await client.deleteLegacyToken(456);
+```
+
+### Webhook Management (v1.2)
+
+```typescript
+// List webhooks
+const webhooks = await client.listWebhooksV2();
+
+// Create webhook
+const webhook = await client.createWebhookV2({
+  url: 'https://example.com/webhook',
+  events: ['ip_change', 'domain_create'],
+  secret: 'my-32-character-minimum-secret!!'
+});
+
+// Update webhook
+await client.updateWebhook(123, {
+  active: false,
+  events: ['ip_change']
+});
+
+// Delete webhook
+await client.deleteWebhookV2(123);
+```
+
+**Available Events:** `ip_change`, `domain_create`, `domain_delete`, `update_failed`
+
+### Webhook Management (Legacy v1.0)
 
 ```typescript
 // Create webhook
