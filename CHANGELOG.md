@@ -5,6 +5,21 @@ All notable changes to the ApertoDNS Client will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.0] - 2026-01-01
+
+### Fixed
+
+- **BREAKING**: Fixed API response format to match IETF specification
+  - `ApiResponse.status` (string) → `ApiResponse.success` (boolean)
+  - Error detection now uses `success === false` instead of `status === 'error'`
+- Client now correctly handles API responses per protocol v1.2
+
+### Changed
+
+- Updated `ApiResponse<T>` interface: `success: boolean` replaces `status: string`
+
+---
+
 ## [1.2.1] - 2025-12-29
 
 ### Documentation

@@ -602,7 +602,7 @@ export class ApertoDNSClient {
       const data = await response.json() as ApiResponse<T>;
 
       // Handle errors
-      if (!response.ok || data.status === 'error') {
+      if (!response.ok || data.success === false) {
         throw this.handleErrorResponse(response.status, data, requestId);
       }
 

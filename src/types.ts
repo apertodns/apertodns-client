@@ -105,7 +105,7 @@ export interface DeleteAccountRequest {
 // ============================================================================
 
 export interface ApiResponse<T> {
-  status: 'success' | 'partial_success' | 'error' | 'accepted';
+  success: boolean;
   data?: T;
   error?: ApiError;
   meta?: ResponseMeta;
