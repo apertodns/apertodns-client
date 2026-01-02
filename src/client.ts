@@ -228,7 +228,7 @@ export class ApertoDNSClient {
   async createToken(request: CreateTokenRequest): Promise<TokenResponse> {
     const response = await this.request<TokenResponse>(
       'POST',
-      '/.well-known/apertodns/v1/tokens',
+      '/api/tokens',
       request
     );
     return response;
@@ -240,7 +240,7 @@ export class ApertoDNSClient {
   async listTokens(): Promise<TokenResponse[]> {
     const response = await this.request<TokenResponse[]>(
       'GET',
-      '/.well-known/apertodns/v1/tokens'
+      '/api/tokens'
     );
     return response;
   }
@@ -251,7 +251,7 @@ export class ApertoDNSClient {
   async deleteToken(tokenId: string): Promise<void> {
     await this.request<void>(
       'DELETE',
-      `/.well-known/apertodns/v1/tokens/${encodeURIComponent(tokenId)}`
+      `/api/tokens/${encodeURIComponent(tokenId)}`
     );
   }
 
@@ -265,7 +265,7 @@ export class ApertoDNSClient {
   async createWebhook(request: CreateWebhookRequest): Promise<WebhookResponse> {
     const response = await this.request<WebhookResponse>(
       'POST',
-      '/.well-known/apertodns/v1/webhooks',
+      '/api/webhooks',
       request
     );
     return response;
@@ -277,7 +277,7 @@ export class ApertoDNSClient {
   async listWebhooks(): Promise<WebhookResponse[]> {
     const response = await this.request<WebhookResponse[]>(
       'GET',
-      '/.well-known/apertodns/v1/webhooks'
+      '/api/webhooks'
     );
     return response;
   }
@@ -288,7 +288,7 @@ export class ApertoDNSClient {
   async deleteWebhook(webhookId: string): Promise<void> {
     await this.request<void>(
       'DELETE',
-      `/.well-known/apertodns/v1/webhooks/${encodeURIComponent(webhookId)}`
+      `/api/webhooks/${encodeURIComponent(webhookId)}`
     );
   }
 
@@ -303,7 +303,7 @@ export class ApertoDNSClient {
   async listApiKeys(): Promise<ApiKeyResponse[]> {
     const response = await this.request<ApiKeyResponse[]>(
       'GET',
-      '/.well-known/apertodns/v1/api-keys'
+      '/api/api-keys'
     );
     return response;
   }
@@ -315,7 +315,7 @@ export class ApertoDNSClient {
   async createApiKey(request: CreateApiKeyRequest): Promise<CreateApiKeyResponse> {
     const response = await this.request<CreateApiKeyResponse>(
       'POST',
-      '/.well-known/apertodns/v1/api-keys',
+      '/api/api-keys',
       request
     );
     return response;
@@ -327,7 +327,7 @@ export class ApertoDNSClient {
   async deleteApiKey(id: number): Promise<DeleteResponse> {
     const response = await this.request<DeleteResponse>(
       'DELETE',
-      `/.well-known/apertodns/v1/api-keys/${id}`
+      `/api/api-keys/${id}`
     );
     return response;
   }
@@ -343,7 +343,7 @@ export class ApertoDNSClient {
   async listLegacyTokens(): Promise<LegacyTokenResponse[]> {
     const response = await this.request<LegacyTokenResponse[]>(
       'GET',
-      '/.well-known/apertodns/v1/tokens'
+      '/api/tokens'
     );
     return response;
   }
@@ -355,7 +355,7 @@ export class ApertoDNSClient {
   async createLegacyToken(request: CreateLegacyTokenRequest): Promise<CreateLegacyTokenResponse> {
     const response = await this.request<CreateLegacyTokenResponse>(
       'POST',
-      '/.well-known/apertodns/v1/tokens',
+      '/api/tokens',
       request
     );
     return response;
@@ -368,7 +368,7 @@ export class ApertoDNSClient {
   async regenerateLegacyToken(id: number): Promise<RegenerateTokenResponse> {
     const response = await this.request<RegenerateTokenResponse>(
       'POST',
-      `/.well-known/apertodns/v1/tokens/${id}/regenerate`
+      `/api/tokens/${id}/regenerate`
     );
     return response;
   }
@@ -379,7 +379,7 @@ export class ApertoDNSClient {
   async deleteLegacyToken(id: number): Promise<DeleteResponse> {
     const response = await this.request<DeleteResponse>(
       'DELETE',
-      `/.well-known/apertodns/v1/tokens/${id}`
+      `/api/tokens/${id}`
     );
     return response;
   }
@@ -394,7 +394,7 @@ export class ApertoDNSClient {
   async listWebhooksV2(): Promise<WebhookResponseV2[]> {
     const response = await this.request<WebhookResponseV2[]>(
       'GET',
-      '/.well-known/apertodns/v1/webhooks'
+      '/api/webhooks'
     );
     return response;
   }
@@ -405,7 +405,7 @@ export class ApertoDNSClient {
   async createWebhookV2(request: CreateWebhookRequestV2): Promise<WebhookResponseV2> {
     const response = await this.request<WebhookResponseV2>(
       'POST',
-      '/.well-known/apertodns/v1/webhooks',
+      '/api/webhooks',
       request
     );
     return response;
@@ -417,7 +417,7 @@ export class ApertoDNSClient {
   async updateWebhook(id: number, request: UpdateWebhookRequest): Promise<WebhookResponseV2> {
     const response = await this.request<WebhookResponseV2>(
       'PATCH',
-      `/.well-known/apertodns/v1/webhooks/${id}`,
+      `/api/webhooks/${id}`,
       request
     );
     return response;
@@ -429,7 +429,7 @@ export class ApertoDNSClient {
   async deleteWebhookV2(id: number): Promise<DeleteResponse> {
     const response = await this.request<DeleteResponse>(
       'DELETE',
-      `/.well-known/apertodns/v1/webhooks/${id}`
+      `/api/webhooks/${id}`
     );
     return response;
   }
