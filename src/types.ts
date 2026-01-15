@@ -288,6 +288,8 @@ export type ErrorCode =
   | 'invalid_hostname'
   | 'invalid_ip'
   | 'invalid_ttl'
+  | 'ipv4_auto_failed'
+  | 'ipv6_auto_failed'
   | 'hostname_not_found'
   | 'token_not_found'
   | 'webhook_not_found'
