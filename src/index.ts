@@ -1,5 +1,5 @@
 /**
- * ApertoDNS Client - Universal TypeScript client for ApertoDNS Protocol v1.0
+ * ApertoDNS Client - Universal TypeScript client for ApertoDNS Protocol v1.2.3
  *
  * @author Andrea Ferro <support@apertodns.com>
  * @license MIT
