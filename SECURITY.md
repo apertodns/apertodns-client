@@ -39,8 +39,10 @@ We appreciate responsible disclosure and will acknowledge security researchers i
 
 | Version | Supported |
 |---------|-----------|
-| 1.1.x   | ✅ Yes    |
-| 1.0.x   | ✅ Yes    |
+| 1.3.x   | ✅ Yes    |
+| 1.2.x   | ✅ Yes    |
+| 1.1.x   | ⚠️ Security fixes only |
+| 1.0.x   | ❌ No     |
 | < 1.0   | ❌ No     |
 
 ## See Also
