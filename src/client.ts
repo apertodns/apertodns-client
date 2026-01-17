@@ -254,19 +254,24 @@ export class ApertoDNSClient {
    * Delete a TXT record
    * @param hostname - The hostname to delete the TXT record from
    * @param name - The TXT record name to delete (e.g., "_acme-challenge")
+   * @param value - Optional: specific value to delete (for multi-TXT wildcard support)
    * @returns Update response with confirmation
    *
    * @example
    * ```typescript
-   * // Delete ACME challenge TXT record after certificate issuance
+   * // Delete all TXT records with the given name
    * await client.deleteTxt('example.apertodns.com', '_acme-challenge');
+   *
+   * // Delete only a specific TXT record value (for wildcard certificates)
+   * await client.deleteTxt('example.apertodns.com', '_acme-challenge', 'specific-token-value');
    * ```
    */
-  async deleteTxt(hostname: string, name: string): Promise<UpdateResponse> {
+  async deleteTxt(hostname: string, name: string, value?: string): Promise<UpdateResponse> {
     return this.update({
       hostname,
       txt: {
         name,
+        value,
         action: 'delete',
       },
     });
