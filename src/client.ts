@@ -219,6 +219,60 @@ export class ApertoDNSClient {
   }
 
   // ============================================================================
+  // TXT Record Management (ACME DNS-01 Challenge Support)
+  // ============================================================================
+
+  /**
+   * Set a TXT record for ACME DNS-01 challenge
+   * @param hostname - The hostname to set the TXT record for
+   * @param name - The TXT record name (e.g., "_acme-challenge")
+   * @param value - The TXT record value (the challenge token)
+   * @returns Update response with confirmation
+   *
+   * @example
+   * ```typescript
+   * // Set ACME challenge TXT record
+   * await client.setTxt(
+   *   'example.apertodns.com',
+   *   '_acme-challenge',
+   *   'gfj9Xq...Rg85nM'
+   * );
+   * ```
+   */
+  async setTxt(hostname: string, name: string, value: string): Promise<UpdateResponse> {
+    return this.update({
+      hostname,
+      txt: {
+        name,
+        value,
+        action: 'set',
+      },
+    });
+  }
+
+  /**
+   * Delete a TXT record
+   * @param hostname - The hostname to delete the TXT record from
+   * @param name - The TXT record name to delete (e.g., "_acme-challenge")
+   * @returns Update response with confirmation
+   *
+   * @example
+   * ```typescript
+   * // Delete ACME challenge TXT record after certificate issuance
+   * await client.deleteTxt('example.apertodns.com', '_acme-challenge');
+   * ```
+   */
+  async deleteTxt(hostname: string, name: string): Promise<UpdateResponse> {
+    return this.update({
+      hostname,
+      txt: {
+        name,
+        action: 'delete',
+      },
+    });
+  }
+
+  // ============================================================================
   // Token Management
   // ============================================================================
 

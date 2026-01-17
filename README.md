@@ -111,6 +111,32 @@ console.log(result.summary);
 // { total: 3, successful: 3, failed: 0 }
 ```
 
+#### TXT Records (ACME DNS-01)
+
+Set and delete TXT records for Let's Encrypt DNS-01 challenges:
+
+```typescript
+// Set TXT record for certificate validation
+await client.setTxt(
+  'example.apertodns.com',
+  '_acme-challenge',
+  'gfj9Xq...validation-token'
+);
+
+// Delete TXT record after certificate issuance
+await client.deleteTxt('example.apertodns.com', '_acme-challenge');
+
+// Or use update() with txt option for more control
+const result = await client.update({
+  hostname: 'example.apertodns.com',
+  txt: {
+    name: '_acme-challenge',
+    value: 'validation-token',
+    action: 'set'  // or 'delete'
+  }
+});
+```
+
 #### Legacy DynDNS2
 
 ```typescript

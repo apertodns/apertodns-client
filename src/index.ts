@@ -31,6 +31,7 @@ export type {
   ApertoDNSConfig,
   RetryConfig,
   UpdateRequest,
+  TxtRecordRequest,
   BulkUpdateRequest,
   CreateTokenRequest,
   CreateWebhookRequest,

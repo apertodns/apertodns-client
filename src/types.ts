@@ -43,6 +43,17 @@ export interface UpdateRequest {
   ipv6?: string | 'auto' | null;
   /** TTL in seconds (60-86400) */
   ttl?: number;
+  /** TXT record for ACME DNS-01 challenges */
+  txt?: TxtRecordRequest;
+}
+
+export interface TxtRecordRequest {
+  /** TXT record name (e.g., "_acme-challenge") */
+  name: string;
+  /** TXT record value (required for 'set' action) */
+  value?: string;
+  /** Action: 'set' or 'delete' */
+  action: 'set' | 'delete';
 }
 
 export interface BulkUpdateRequest {

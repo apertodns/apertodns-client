@@ -210,6 +210,11 @@ export function validateUpdateRequest(request: {
   ipv4?: string | null;
   ipv6?: string | null;
   ttl?: number;
+  txt?: {
+    name?: string;
+    value?: string;
+    action?: string;
+  };
 }): ValidationResult {
   const errors: ValidationFieldError[] = [];
 
@@ -230,6 +235,7 @@ export function validateUpdateRequest(request: {
   }
 
   // IPv4 validation (if provided and not "auto")
+  // Note: Only validate format, let server decide if IP is acceptable
   if (request.ipv4 && request.ipv4 !== 'auto') {
     if (!isValidIPv4(request.ipv4)) {
       errors.push({
@@ -238,30 +244,17 @@ export function validateUpdateRequest(request: {
         message: 'Invalid IPv4 address format',
         provided: request.ipv4,
       });
-    } else if (!isPublicIPv4(request.ipv4)) {
-      errors.push({
-        field: 'ipv4',
-        code: 'private_ip',
-        message: 'IPv4 address must be a public address',
-        provided: request.ipv4,
-      });
     }
   }
 
   // IPv6 validation (if provided and not "auto")
+  // Note: Only validate format, let server decide if IP is acceptable
   if (request.ipv6 && request.ipv6 !== 'auto') {
     if (!isValidIPv6(request.ipv6)) {
       errors.push({
         field: 'ipv6',
         code: 'invalid_format',
         message: 'Invalid IPv6 address format',
-        provided: request.ipv6,
-      });
-    } else if (!isPublicIPv6(request.ipv6)) {
-      errors.push({
-        field: 'ipv6',
-        code: 'private_ip',
-        message: 'IPv6 address must be a public address',
         provided: request.ipv6,
       });
     }
@@ -276,6 +269,55 @@ export function validateUpdateRequest(request: {
       provided: request.ttl,
       constraints: { min: 60, max: 86400 },
     });
+  }
+
+  // TXT record validation (if provided)
+  if (request.txt) {
+    // Name is required
+    if (!request.txt.name || typeof request.txt.name !== 'string') {
+      errors.push({
+        field: 'txt.name',
+        code: 'required',
+        message: 'TXT record name is required',
+      });
+    } else if (request.txt.name.length > 63) {
+      errors.push({
+        field: 'txt.name',
+        code: 'invalid_format',
+        message: 'TXT record name must be at most 63 characters',
+        provided: request.txt.name,
+      });
+    }
+
+    // Action must be 'set' or 'delete'
+    if (!request.txt.action || !['set', 'delete'].includes(request.txt.action)) {
+      errors.push({
+        field: 'txt.action',
+        code: 'invalid_value',
+        message: 'TXT action must be "set" or "delete"',
+        provided: request.txt.action,
+      });
+    }
+
+    // Value is required for 'set' action
+    if (request.txt.action === 'set' && (!request.txt.value || typeof request.txt.value !== 'string')) {
+      errors.push({
+        field: 'txt.value',
+        code: 'required',
+        message: 'TXT record value is required for "set" action',
+      });
+    }
+
+    // Value must not exceed 255 characters (DNS TXT record limit)
+    if (request.txt.value && request.txt.value.length > 255) {
+      errors.push({
+        field: 'txt.value',
+        code: 'too_long',
+        message: 'TXT record value must be at most 255 characters',
+        provided: request.txt.value,
+        constraints: { max: 255 },
+      });
+    }
   }
 
   return {

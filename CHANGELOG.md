@@ -5,6 +5,24 @@ All notable changes to the ApertoDNS Client will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4.0] - 2026-01-17
+
+### Added
+
+- **TXT Record Support** for ACME DNS-01 challenges
+  - `setTxt(hostname, name, value)` - Set a TXT record for DNS-01 validation
+  - `deleteTxt(hostname, name)` - Delete a TXT record after certificate issuance
+  - `TxtRecordRequest` type for TXT operations
+  - `txt` field added to `UpdateRequest` type
+
+### Fixed
+
+- `update()` validation no longer rejects documentation IPs (192.0.2.x, 198.51.100.x, 203.0.113.x)
+  - Server handles IP validation, client only validates format
+  - Enables testing with RFC 5737 documentation addresses
+
+---
+
 ## [1.3.2] - 2026-01-15
 
 ### Added
