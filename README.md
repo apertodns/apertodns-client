@@ -1,10 +1,10 @@
 # apertodns-client
 
-Universal TypeScript client for ApertoDNS Protocol v1.2.3
+Universal TypeScript client for ApertoDNS Protocol v1.3.0
 
 [![npm version](https://img.shields.io/npm/v/apertodns-client.svg)](https://www.npmjs.com/package/apertodns-client)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![ApertoDNS Protocol v1.2.3](https://img.shields.io/badge/ApertoDNS_Protocol-v1.2.3-blue)](https://apertodns.com/protocol)
+[![ApertoDNS Protocol v1.3.0](https://img.shields.io/badge/ApertoDNS_Protocol-v1.3.0-blue)](https://apertodns.com/protocol)
 
 ## Installation
 
