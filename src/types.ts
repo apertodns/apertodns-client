@@ -140,7 +140,13 @@ export interface UpdateResponse {
   hostname: string;
   ipv4: string | null;
   ipv6: string | null;
+  /** IETF-02 field name (primary) */
+  previous_ipv4: string | null;
+  /** IETF-02 field name (primary) */
+  previous_ipv6: string | null;
+  /** @deprecated Use previous_ipv4 instead */
   ipv4_previous: string | null;
+  /** @deprecated Use previous_ipv6 instead */
   ipv6_previous: string | null;
   ttl: number;
   changed: boolean;
@@ -175,9 +181,25 @@ export interface StatusResponse {
   ipv6: string | null;
   ttl: number;
   is_active: boolean;
-  last_update: string;
+  /** IETF-02 field name */
+  updated_at: string;
+  /** @deprecated Use updated_at instead */
+  last_update?: string;
   update_count_24h: number;
   update_count_total: number;
+  created_at: string;
+}
+
+export interface DomainResponse {
+  hostname: string;
+  ipv4: string | null;
+  ipv6: string | null;
+  ttl: number;
+  /** IETF-02 field name (primary) */
+  is_custom_domain: boolean;
+  /** @deprecated Use is_custom_domain instead */
+  is_custom?: boolean;
+  updated_at: string;
   created_at: string;
 }
 
@@ -485,9 +507,15 @@ export interface WebhookPayload {
 
 export interface WebhookEventData {
   hostname: string;
+  /** IETF-02 field name (primary) */
+  previous_ipv4?: string | null;
+  /** IETF-02 field name (primary) */
+  previous_ipv6?: string | null;
+  /** @deprecated Use previous_ipv4 instead */
   ipv4_previous?: string | null;
-  ipv4_current?: string | null;
+  /** @deprecated Use previous_ipv6 instead */
   ipv6_previous?: string | null;
+  ipv4_current?: string | null;
   ipv6_current?: string | null;
   ttl?: number;
 }

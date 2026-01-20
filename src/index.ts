@@ -1,5 +1,5 @@
 /**
- * ApertoDNS Client - Universal TypeScript client for ApertoDNS Protocol v1.3.0
+ * ApertoDNS Client - Universal TypeScript client for ApertoDNS Protocol v1.3.2 (IETF-02)
  *
  * @author Andrea Ferro <support@apertodns.com>
  * @license MIT
@@ -44,6 +44,7 @@ export type {
   BulkUpdateResponse,
   BulkUpdateResult,
   StatusResponse,
+  DomainResponse,
   DiscoveryResponse,
   ProviderInfo,
   EndpointsInfo,
