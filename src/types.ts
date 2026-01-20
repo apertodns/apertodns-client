@@ -323,7 +323,7 @@ export type ErrorCode =
   | 'invalid_ttl'
   | 'ipv4_auto_failed'
   | 'ipv6_auto_failed'
-  | 'hostname_not_found'
+  | 'hostname_not_owned'
   | 'token_not_found'
   | 'webhook_not_found'
   | 'hostname_exists'

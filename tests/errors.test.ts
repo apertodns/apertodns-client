@@ -90,8 +90,8 @@ describe('NotFoundError', () => {
     const error = new NotFoundError('Hostname not found');
 
     expect(error.name).toBe('NotFoundError');
-    expect(error.code).toBe('hostname_not_found');
-    expect(error.statusCode).toBe(404);
+    expect(error.code).toBe('hostname_not_owned');
+    expect(error.statusCode).toBe(403);
   });
 });
 

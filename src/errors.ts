@@ -90,8 +90,8 @@ export class ForbiddenError extends ApertoDNSError {
  * Not found error (404)
  */
 export class NotFoundError extends ApertoDNSError {
-  constructor(message: string, code: ErrorCode = 'hostname_not_found', options?: { requestId?: string }) {
-    super(message, code, 404, options);
+  constructor(message: string, code: ErrorCode = 'hostname_not_owned', options?: { requestId?: string }) {
+    super(message, code, 403, options);
     this.name = 'NotFoundError';
   }
 }
