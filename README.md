@@ -85,8 +85,8 @@ console.log(result);
 //   hostname: 'myhost.apertodns.com',
 //   ipv4: '203.0.113.50',
 //   ipv6: '2001:db8::1',
-//   ipv4_previous: '203.0.113.49',
-//   ipv6_previous: null,
+//   previous_ipv4: '203.0.113.49',
+//   previous_ipv6: null,
 //   ttl: 300,
 //   changed: true,
 //   updated_at: '2025-01-01T12:00:00.000Z'
